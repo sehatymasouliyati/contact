@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تواصل معنا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  body{
+    font-family:'Tajawal', system-ui, -apple-system, sans-serif;
+    background:#F5F6F8;
+    color:#111827;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .card{
+    width:100%;
+    max-width:480px;
+    background:#FFFFFF;
+    border:1px solid #E5E7EB;
+    border-radius:14px;
+    padding:44px 40px;
+    box-shadow:0 1px 2px rgba(16,24,40,.04), 0 12px 32px -18px rgba(16,24,40,.18);
+  }
+
+  h1{
+    font-size:22px;
+    font-weight:700;
+    line-height:1.6;
+    color:#0F172A;
+    margin-bottom:10px;
+  }
+
+  .sub{
+    font-size:15px;
+    font-weight:400;
+    line-height:1.9;
+    color:#64748B;
+    margin-bottom:34px;
+  }
+
+  .field{margin-bottom:20px}
+
+  label{
+    display:block;
+    font-size:13.5px;
+    font-weight:500;
+    color:#334155;
+    margin-bottom:8px;
+  }
+
+  input, textarea{
+    width:100%;
+    font-family:inherit;
+    font-size:15px;
+    color:#0F172A;
+    background:#FFFFFF;
+    border:1px solid #D1D5DB;
+    border-radius:9px;
+    padding:12px 14px;
+    outline:none;
+    transition:border-color .18s, box-shadow .18s;
+  }
+
+  textarea{
+    min-height:120px;
+    line-height:1.7;
+    resize:vertical;
+  }
+
+  input::placeholder, textarea::placeholder{color:#9CA3AF}
+
+  input:focus, textarea:focus{
+    border-color:#0F172A;
+    box-shadow:0 0 0 3px rgba(15,23,42,.08);
+  }
+
+  button{
+    width:100%;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.2px;
+    color:#FFFFFF;
+    background:#0F172A;
+    border:none;
+    border-radius:9px;
+    padding:14px;
+    margin-top:8px;
+    cursor:pointer;
+    transition:background .18s, transform .12s;
+  }
+
+  button:hover{background:#1E293B}
+  button:active{transform:translateY(1px)}
+
+  @media (max-width:480px){
+    .card{padding:32px 22px}
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+
+    <h1>يسعدنا خدمتك في أي وقت</h1>
+    <p class="sub">ادخل اسمك ورسالتك ثم اضغط زر المتابعة</p>
+
+    <div class="field">
+      <label for="name">الاسم</label>
+      <input type="text" id="name" placeholder="اكتب اسمك" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label for="message">الرسالة</label>
+      <textarea id="message" placeholder="اكتب رسالتك"></textarea>
+    </div>
+
+    <button id="sendBtn" type="button">إرسال</button>
+
+  </div>
+
+<script>
+  const CONFIG = { fullNumber: "967733400760" };
+
+  const nameInput = document.getElementById('name');
+  const msgInput  = document.getElementById('message');
+  const sendBtn   = document.getElementById('sendBtn');
+
+  function openChat(){
+    const name = nameInput.value.trim();
+    const msg  = msgInput.value.trim();
+
+    let text = '';
+    if (name) text += 'الاسم: ' + name + '\n';
+    if (msg)  text += msg;
+
+    const url = 'https://wa.me/' + CONFIG.fullNumber +
+                (text ? '?text=' + encodeURIComponent(text) : '');
+
+    const win = window.open(url, '_blank', 'noopener,noreferrer');
+    if (!win) window.location.href = url;
+  }
+
+  sendBtn.addEventListener('click', openChat);
+
+  nameInput.addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){ e.preventDefault(); openChat(); }
+  });
+</script>
+
+</body>
+</html>
